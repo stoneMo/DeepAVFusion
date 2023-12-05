@@ -9,7 +9,7 @@ DeepAVFusion is a novel attention-based fusion framework that can attend to loca
 arXiv 2023.
 
 <div align="center">
-  <img width="100%" alt="DeepAVFusion Illustration" src="assets/framework.png">
+  <img width="85%" alt="DeepAVFusion Illustration" src="assets/framework.png">
 </div>
 
 
