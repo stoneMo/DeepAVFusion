@@ -1,0 +1,8 @@
+dataset: vggsound
+data_path: ${data.data_path}
+batch_size: ${opt.batch_size}
+audio_rate: ${data.audio_rate}
+audio_dur: ${data.audio_dur}
+audio_mels: ${data.audio_mels}
+image_size: ${data.image_size}
+crop_min: ${data.crop_min}

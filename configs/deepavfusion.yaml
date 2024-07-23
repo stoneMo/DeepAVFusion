@@ -1,0 +1,60 @@
+defaults:
+  - hydra: default
+  - env: default
+  - log: default
+  - nn_probe: default
+
+worker: train
+output_dir: checkpoints
+job_name: deepavfusion_${data.dataset}_ep${opt.epochs}_bs${opt.batch_size}x${env.ngpu}x${opt.accum_iter}_blr${opt.blr}
+debug: False
+
+model:
+  image:
+    backbone: vit_base
+    pretrained: vit_base_mae_in1k
+    decoder_arch: plain
+    decoder_depth: 8
+    mask_ratio: 0.75
+    norm_loss: True
+  audio:
+    backbone: vit_base
+    pretrained: vit_base_audiomae_as2m
+    decoder_arch: plain
+    decoder_depth: 8
+    mask_ratio: 0.8
+    norm_loss: True
+  fusion:
+    arch: factorized_mmi
+    layers: all
+    num_fusion_tkns: 16
+    num_aggr_image_tkns: 8
+    num_aggr_audio_tkns: 8
+    mlp_ratio: 4.0
+    attn_ratio: 0.25
+    num_heads: 12
+
+data:
+  dataset: vggsound
+  data_path: /srv/home/groups/pmorgado/datasets/vggsound
+  audio_rate: 16000
+  audio_dur: 3.
+  audio_mels: 128
+  image_size: 224
+  crop_min: 0.5
+
+opt:
+  resume: True
+  epochs: 300
+  warmup_epochs: 50
+  batch_size: 128
+  accum_iter: 1
+  weight_decay: 0.05
+  blr: 1.5e-4
+  min_lr: 0.
+  lr:
+  pt_lr_mult_start: 0
+  pt_lr_mult_end: 1
+  pt_warmup_epochs: ${opt.epochs}/2
+  clip_grad:
+  use_amp: True

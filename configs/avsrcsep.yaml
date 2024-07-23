@@ -1,0 +1,63 @@
+defaults:
+  - hydra: default
+  - env: default
+  - log: default
+
+worker: eval_avsrcsep
+output_dir: checkpoints
+job_name: avsrcsep
+pretrain_job_name:
+checkpoint:
+encoder_prefix: 'encoder.'
+pretrain_resume_epoch: latest
+eval: False
+debug: False
+
+model:
+  image:
+    backbone: vit_base
+    pretrained: vit_base_mae_in1k
+  audio:
+    backbone: vit_base
+    pretrained: vit_base_audiomae_as2m
+  fusion:
+    arch: factorized_mmi
+    layers: all
+    num_fusion_tkns: 16
+    num_aggr_image_tkns: 8
+    num_aggr_audio_tkns: 8
+    mlp_ratio: 4.0
+    attn_ratio: 0.25
+    num_heads: 12
+
+avss:
+  log_freq: True
+  weighted_loss: False
+  binary_mask: True
+  num_mixtures: 2
+
+opt:
+  resume: True
+  batch_size: 16
+  epochs: 300
+  warmup_epochs: 40
+  accum_iter: 8
+  clip_grad:
+  weight_decay: 0.05
+  layer_decay: 0.75
+  lr:
+  blr: 3e-4
+  min_lr: 0.
+  drop_path: 0.
+  attn_drop: 0.
+  proj_drop: 0.
+  use_amp: False
+
+data:
+  dataset: vggsound
+  data_path: /srv/home/groups/pmorgado/datasets/vggsound
+  audio_rate: 16000
+  audio_dur: 3.
+  audio_mels: 128
+  image_size: 224
+  crop_min: 0.5

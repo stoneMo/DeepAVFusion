@@ -1,0 +1,11 @@
+# Logging frequency
+print_freq: 100
+save_freq: 50
+eval_freq: 10
+wandb_watch_freq: 0
+debug: False
+
+# Logging
+use_wandb: True
+wandb_entity: pmorgado
+wandb_project: efav

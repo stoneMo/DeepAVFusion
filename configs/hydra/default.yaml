@@ -1,0 +1,5 @@
+run:
+  dir: .
+sweep:
+  dir: .
+  subdir: .

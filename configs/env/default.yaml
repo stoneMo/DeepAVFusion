@@ -1,0 +1,20 @@
+world_size: 1
+rank: 0
+dist_url: tcp://localhost:50000
+dist_backend: nccl
+port: 50000
+node: localhost
+
+distributed: True
+seed:
+gpu:
+ngpu: 1
+mem_gb:
+workers:
+
+slurm: True
+slurm_suffix: ""
+slurm_partition: morgadolab
+slurm_timeout: 1440
+nodelist: ""
+exclude: "euler01,euler02,euler03,euler04,euler05,euler06,euler07,euler08,euler09,euler11,euler12,euler13,euler14,euler15,euler16,euler21,euler24,euler25,euler26,euler27"
